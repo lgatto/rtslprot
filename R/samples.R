@@ -25,11 +25,7 @@ readSampleExperimentTable <- function(f = "SampleExperimentTable.csv",
   exp <- read.csv(f, stringsAsFactors = FALSE)
   wdir <- dirname(f)
   ## drop constant variables
-  nvar <- apply(exp, 2, function(x) length(unique(x)))
-  if (any(nvar <= 1))
-    message("Dropping constant variable(s): ",
-            paste(names(exp)[nvar <= 1], collapse = ", "))
-  exp <- exp[, nvar > 1]
+  exp <- dropConstantVariables(exp)
   ## check that mzml files exist
   mzml_files <- file.path(wdir, mzml,
                           paste(exp$name, "mzML", sep = "."))
@@ -75,3 +71,17 @@ experimentHierarchy <- function(exp, fcol,
   x
 }
 
+
+#' Drop constant variable
+#'
+#' @param exp An experiment summary, as produced by `readSampleExperimentTable`.
+#' @return An update experiment table without any constant variables.
+#' @export
+#' @md
+dropConstantVariables <- function(exp) {
+  nvar <- apply(exp, 2, function(x) length(unique(x)))
+  if (any(nvar <= 1))
+    message("Dropping constant variable(s): ",
+            paste(names(exp)[nvar <= 1], collapse = ", "))
+  exp[, nvar > 1]
+}
