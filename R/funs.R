@@ -9,5 +9,5 @@ make_psm_MSnSet <- function(mzid_files) {
 
 make_pep_MSnSet <- function(mzid_files, fcol = "pepSeq") {
   e <- make_psm_MSnSet(mzid_files)
-  combineFeature(e, fcol = fcol, fun = sum)
+  combineFeatures(e, fcol = fcol, fun = sum)
 }
