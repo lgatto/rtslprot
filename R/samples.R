@@ -24,6 +24,12 @@ readSampleExperimentTable <- function(f = "SampleExperimentTable.csv",
                                       mzid = "msgf") {
   exp <- read.csv(f, stringsAsFactors = FALSE)
   wdir <- dirname(f)
+  ## drop constant variables
+  nvar <- apply(exp, 2, function(x) length(unique(x)))
+  if (any(nvar <= 1))
+    message("Dropping constant variable(s): ",
+            paste(names(exp)[nvar <= 1], collapse = ", "))
+  exp <- exp[, nvar > 1]
   ## check that mzml files exist
   mzml_files <- file.path(wdir, mzml,
                           paste(exp$name, "mzML", sep = "."))
@@ -38,3 +44,34 @@ readSampleExperimentTable <- function(f = "SampleExperimentTable.csv",
     stop(sum(!mzid_exist), " mzid files don't exist.")
   exp
 }
+
+#' Print a experiment summary
+#'
+#' @param exp An experiment summary, as produced by `readSampleExperimentTable`.
+#' @return Used for its side effect.
+#' @export
+#' @md
+experimentSummary <- function(exp) {
+  cat("Number of sample:", nrow(exp), "\n")
+  cat("With variable:\n")
+  for (i in seq_len(ncol(exp)))
+    cat(paste0(" - ", names(exp)[i], ": ", length(unique(exp[, i])), "\n"))
+}
+
+#' Print a summary hierarchy.
+#'
+#' @param exp An experiment summary, as produced by `readSampleExperimentTable`.
+#' @param fcol Variable names to be used for the hierarchy/
+#' @param orderBy Optional variable to order.
+#' @md
+#' @return Used for printing only.
+#' @export
+experimentHierarchy <- function(exp, fcol,
+                                orderBy = NULL) {
+  x <- unique(exp[, fcol])
+  stopifnot(orderBy %in% fcol)
+  if (!is.null(orderBy))
+    x <- x[order(x[, orderBy]), ]
+  x
+}
+

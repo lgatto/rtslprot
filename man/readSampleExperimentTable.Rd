@@ -26,4 +26,7 @@ where the mzid files can be found. Default is
 \description{
 This function read the sample experiment table
 and checks that all the mzML and mzid files exist.
+The names of the files (without extensions) must
+be defined in a column \code{"name"} in the sample experiment
+table.
 }
