@@ -19,6 +19,7 @@
 #' @return `data.frame` with the sample experiment table.
 #' @export
 #' @md
+#' @importFrom utils read.csv
 readSampleExperimentTable <- function(f = "SampleExperimentTable.csv",
                                       mzml = "mzml",
                                       mzid = "msgf") {

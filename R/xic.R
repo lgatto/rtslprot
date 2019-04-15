@@ -13,6 +13,7 @@
 ##' res <- plotxic(x, rtr, mzr) ## produces the plot
 ##' res ## contains the data used to plot
 ##' }
+##' @import MSnbase
 plotxic <- function(object, rtr, mzr) {
     rtsel <- rtime(object) > rtr[1] & rtime(object) < rtr[2]
     mzsel <- precursorMz(object) > mzr[1] & precursorMz(object) < mzr[2]

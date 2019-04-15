@@ -1,4 +1,5 @@
 #' @importFrom msmsTests msms.edgeR
+#' @importFrom stats p.adjust
 msms_edgeR_test <- function(e,
                             null.f,
                             alt.f,
