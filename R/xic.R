@@ -14,7 +14,7 @@
 ##' res ## contains the data used to plot
 ##' }
 ##' @import MSnbase
-plotxic <- function(object, rtr, mzr) {
+plotxic <- function(object, rtr, mzr, plot = TRUE) {
     rtsel <- rtime(object) > rtr[1] & rtime(object) < rtr[2]
     mzsel <- precursorMz(object) > mzr[1] & precursorMz(object) < mzr[2]
     sel <- rtsel & mzsel
@@ -22,6 +22,10 @@ plotxic <- function(object, rtr, mzr) {
                       rt = rtime(object)[sel],
                       tic = tic(object)[sel],
                       row.names = NULL)
+    if (plot){
     plot(res$rt, res$tic, type = 'b')
+    }
+    else{
     invisible(res)
+    }
 }
