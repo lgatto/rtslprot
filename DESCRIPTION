@@ -1,7 +1,7 @@
 Package: rtslprot
 Type: Package
 Title: Analyse proteomics data
-Version: 0.2.3
+Version: 0.2.4
 Author: Laurent, Marielle, Jan, Govind
 Maintainer: Laurent Gatto <laurent.gatto@uclouvain.be>
 Description: Functions developed by the Sainsbury Lab
