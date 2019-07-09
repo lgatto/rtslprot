@@ -40,7 +40,7 @@ as_MSnSet <- function(x, fcol = NULL) {
     if (!is.null(fcol)) {
         ## If there's an fcol, combine at that level by summing PSM counts
         stopifnot(fcol %in% fvarLabels(x))
-        x <- combineFeatures(x, fcol = fcol, fun = sum)
+        x <- combineFeatures(x, fcol = fcol, method = sum)
     }
     return(x)
 }
